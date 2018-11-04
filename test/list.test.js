@@ -62,3 +62,15 @@ test('#collect - does not re-apply filters applied on previous collect', t => {
   const secondCollection = instance.collect()
   t.deepEqual(secondCollection, arrayParam)
 })
+test('#from - throws error if passed argument is not a number', t => {
+  const instance = new List([1, 2])
+  t.throws(() => {
+    instance.from('0')
+  })
+})
+test('#to - throws error if passed argument is not a number', t => {
+  const instance = new List([1, 2])
+  t.throws(() => {
+    instance.to('0')
+  })
+})
