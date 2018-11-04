@@ -8,9 +8,9 @@
 [![license](https://img.shields.io/github/license/vileppanen/bottomscore.svg)](LICENSE)
 [![npm downloads](https://img.shields.io/npm/dt/bottomscore.svg)](https://npm.im/bottomscore)
 
-> Util/extension library for ES6
+> Util/extension library for ES6 Javascript (Little bit like Underscore, but not quite...)
 
-This library contains helper classes and utils, written in ES6.
+This library contains helper classes and utils, written in Javascript (ES6). Some of them might be useful, others are not, and some are most definetly ridiculous. 
 
 
 ## Table of Contents
@@ -44,7 +44,7 @@ Below is listed API for classes that are currently provided by this library.
 
 ### List
 
-Wrapper class to provide functional way of handling arrays. Borrowed some ideas of Streams in Java 8.
+Wrapper class to provide functional way of handling arrays. Borrowed some ideas of Streams in Java.
 
 | Method                                  | Type        | Description                                                                                                                                                                                                                                  |
 | --------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
