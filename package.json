@@ -1,0 +1,112 @@
+{
+  "name": "bottomscore",
+  "description": "Util/extension library for ES6",
+  "version": "0.1.0",
+  "author": "Ville Leppänen <srebelwithoutcause@gmail.com>",
+  "ava": {
+    "failFast": true,
+    "verbose": true
+  },
+  "browser": "dist/bottomscore.umd.js",
+  "bugs": {
+    "url": "https://github.com/vileppanen/bottomscore/issues",
+    "email": "srebelwithoutcause@gmail.com"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "contributors": [
+    "Ville Leppänen <srebelwithoutcause@gmail.com>"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@commitlint/cli": "latest",
+    "@commitlint/config-conventional": "latest",
+    "ava": "latest",
+    "codecov": "latest",
+    "cross-env": "latest",
+    "eslint": "latest",
+    "eslint-config-standard": "latest",
+    "eslint-plugin-standard": "latest",
+    "fixpack": "latest",
+    "husky": "latest",
+    "lint-staged": "latest",
+    "nyc": "latest",
+    "prettier": "latest",
+    "remark-cli": "latest",
+    "remark-preset-github": "latest",
+    "rollup": "^0.67.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "standard": "latest"
+  },
+  "engines": {
+    "node": ">=8.3"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "homepage": "https://github.com/vileppanen/bottomscore",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "keywords": [
+    "bottomscore",
+    "utils"
+  ],
+  "license": "MIT",
+  "lint-staged": {
+    "linters": {
+      "*.js": [
+        "standard --fix",
+        "git add"
+      ],
+      "*.md": [
+        "remark . -qfo",
+        "git add"
+      ],
+      "package.json": [
+        "fixpack",
+        "git add"
+      ]
+    }
+  },
+  "main": "dist/bottomscore.cjs.js",
+  "module": "dist/bottomscore.esm.js",
+  "nyc": {
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100,
+    "reporter": [
+      "lcov",
+      "html",
+      "text"
+    ]
+  },
+  "remarkConfig": {
+    "plugins": [
+      "preset-github"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vileppanen/bottomscore"
+  },
+  "scripts": {
+    "ava": "cross-env NODE_ENV=test ava",
+    "build": "rollup -c",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "lint": "standard && remark . -qfo",
+    "nyc": "cross-env NODE_ENV=test nyc ava",
+    "test": "npm run lint && npm run ava test/**/*.test.js",
+    "test-coverage": "npm run lint && npm run nyc"
+  }
+}
