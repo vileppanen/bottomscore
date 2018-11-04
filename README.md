@@ -62,6 +62,7 @@ Wrapper class to provide functional way of handling arrays. Borrowed some ideas 
 import { List } from 'bottomscore'
 const instance = new List([0,1,2,3])
 const results = instance.filter(number => number > 1).filter(number => number < 3).collect()
+// results === [2]
 ```
 
 
