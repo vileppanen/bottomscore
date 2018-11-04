@@ -1,6 +1,6 @@
 # bottomscore
 
-[![build status](https://img.shields.io/travis/vileppanen/bottomscore.svg)](https://travis-ci.com/vileppanen/bottomscore)
+[![build status](https://travis-ci.com/vileppanen/bottomscore.svg?branch=master)](https://travis-ci.com/vileppanen/bottomscore)
 [![code coverage](https://img.shields.io/codecov/c/github/vileppanen/bottomscore.svg)](https://codecov.io/gh/vileppanen/bottomscore)
 [![code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
@@ -8,9 +8,9 @@
 [![license](https://img.shields.io/github/license/vileppanen/bottomscore.svg)](LICENSE)
 [![npm downloads](https://img.shields.io/npm/dt/bottomscore.svg)](https://npm.im/bottomscore)
 
-> Util/extension library for ES6
+> Util/extension library for ES6 Javascript (Little bit like Underscore, but not quite...)
 
-This library contains helper classes and utils, written in ES6.
+This library contains helper classes and utils, written in Javascript (ES6). Some of them might be useful, others are not, and some are most definetly ridiculous. 
 
 
 ## Table of Contents
@@ -44,7 +44,7 @@ Below is listed API for classes that are currently provided by this library.
 
 ### List
 
-Wrapper class to provide functional way of handling arrays. Borrowed some ideas of Streams in Java 8.
+Wrapper class to provide functional way of handling arrays. Borrowed some ideas of Streams in Java.
 
 | Method                                  | Type        | Description                                                                                                                                                                                                                                  |
 | --------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
