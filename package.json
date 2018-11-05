@@ -106,11 +106,11 @@
     "build": "rollup -c",
     "build:doc": "jsdoc2md --template doc/README.hbs src/*.js > README.md",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "lint": "standard && remark . -qfo",
+    "lint": "standard",
+    "lint:doc": "remark . -qfo",
     "nyc": "cross-env NODE_ENV=test nyc ava",
     "prebuild": "npm run build:doc",
-    "test": "npm run test:lint && npm run ava test/**/*.test.js",
-    "test-coverage": "npm run lint && npm run nyc",
-    "test:lint": "standard"
+    "test": "npm run lint && npm run ava test/**/*.test.js",
+    "test-coverage": "npm run lint && npm run nyc"
   }
 }
