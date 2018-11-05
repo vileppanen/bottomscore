@@ -42,7 +42,6 @@ test('#collect - applies pending filters and returns filtered array value from t
     .filter(item => item.bar === 'bar')
   t.deepEqual(instance.collect(), [ { foo: 'foo', bar: 'bar' } ])
 })
-
 test('#collect - applies pending filters to specified range and returns filtered array value from the instance', t => {
   const arrayParam = [ 'foo', 'bar', 'zoo', 'far' ]
   const instance = new List(arrayParam)
@@ -61,6 +60,26 @@ test('#collect - does not re-apply filters applied on previous collect', t => {
   instance.collect()
   const secondCollection = instance.collect()
   t.deepEqual(secondCollection, arrayParam)
+})
+test('#collect - returns empty array if underlying array is empty, and filters are provided', t => {
+  const instance = new List()
+  const results = instance.filter(item => item === 'foo').collect()
+  t.deepEqual(results, [])
+})
+test('#collect - returns empty array if underlying array is empty, and filters and specifiers are provided', t => {
+  const instance = new List()
+  const results = instance.from(0).to(2).filter(item => item === 'foo').collect()
+  t.deepEqual(results, [])
+})
+test('#collect - returns all elements from specified starting point if only from specifier is provided', t => {
+  const instance = new List([1, 2, 3, 4])
+  const results = instance.from(1).collect()
+  t.deepEqual(results, [2, 3, 4])
+})
+test('#collect - returns all elements from start to the specified ending point if only to specifier is provided', t => {
+  const instance = new List([1, 2, 3, 4])
+  const results = instance.to(3).collect()
+  t.deepEqual(results, [1, 2, 3])
 })
 test('#from - throws error if passed argument is not a number', t => {
   const instance = new List([1, 2])
