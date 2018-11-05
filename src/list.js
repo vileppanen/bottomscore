@@ -1,8 +1,13 @@
 /**
- * Wrapper class for array manipulation.
- * Provides functional interfaces for handling arrays
+ * Wrapper class for array manipulation
+ *
+ * Provides functional interface for handling arrays
  */
 class List {
+  /**
+   * Constructor, that takes in an array to be wrapped
+   * @param {array} fromArray
+   */
   constructor (fromArray = []) {
     this.array = [...fromArray]
     this.fromIndex = 0
@@ -10,7 +15,7 @@ class List {
     this.filters = []
   }
   /**
-   * Generates a list of range by specified range
+   * Generates a list of numbers from specified range
    * @param {number} from Starting from number
    * @param {number} to Ending to number
    */
@@ -25,7 +30,7 @@ class List {
     return new List(array)
   }
   /**
-   * Executes all pending filters and returns result as new array
+   * Executes all pending filters and returns filtered results as new array
    * @type collector
    * @returns {array} Filtered list as array
    */
@@ -42,8 +47,12 @@ class List {
     return targetRange
   }
   /**
-   * Defines a range starting index.
-   * Range starting index is used in Stream functions
+   * Defines a range starting index
+   *
+   * Range starting index is used in collector functions, where it narrows down the collecting to a subset of underlying array
+   * @example
+   * // Collects all items starting from index 1, from underlying array
+   * list.from(1).collect()
    * @type specifier
    * @param {number} index
    */
@@ -55,8 +64,12 @@ class List {
     return this
   }
   /**
-   * Defines a range ending index.
-   * Range ending index is used in Stream functions
+   * Defines a range ending index
+   *
+   * Range ending index is used in collector functions, where it narrows down the collecting to a subset of underlying array
+   * @example
+   * // Collects all items from 0 to 2, from underlying array
+   * list.to(2).collect()
    * @type specifier
    * @param {number} index
    */
@@ -68,10 +81,14 @@ class List {
     return this
   }
   /**
-   * Adds filter function to pending filters
-   * Does not execute the filter yet
+   * Adds filter function to pending filters, but does not execute the filter yet
+   *
+   * Can be chained
+   * @example
+   * // Includes items with foo === 'foo', and then out of that subset, filters out everything except items with bar === 'bar'
+   * list.filter(item => item.foo === 'foo').filter(item => item.bar === 'bar').collect()
    * @type filter
-   * @param {fn} filterFn
+   * @param {fn} filterFn Gets passed in single element from underlying array, and needs to return boolean specifying if the element should be excluded from results
    */
   filter (filterFn) {
     if (typeof filterFn !== 'function') {
