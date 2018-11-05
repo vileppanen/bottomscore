@@ -60,7 +60,9 @@ Defines boundaries for a number which it cannot cross (= always keeps the number
 <a name="List"></a>
 
 ## List
-Wrapper class for array manipulationProvides functional interface for handling arrays
+Wrapper class for array manipulation
+
+Provides functional interface for handling arrays
 
 **Kind**: global class  
 
@@ -94,7 +96,9 @@ Executes all pending filters and returns filtered results as new array
 <a name="List+from"></a>
 
 ### list.from(index) : <code>specifier</code>
-Defines a range starting indexRange starting index is used in collector functions, where it narrows down the collecting to a subset of underlying array
+Defines a range starting index
+
+Range starting index is used in collector functions, where it narrows down the collecting to a subset of underlying array
 
 **Kind**: instance method of [<code>List</code>](#List)  
 
@@ -104,12 +108,15 @@ Defines a range starting indexRange starting index is used in collector functi
 
 **Example**  
 ```js
-// Collects all items starting from index 1, from underlying arraylist.from(1).collect()
+// Collects all items starting from index 1, from underlying array
+list.from(1).collect()
 ```
 <a name="List+to"></a>
 
 ### list.to(index) : <code>specifier</code>
-Defines a range ending indexRange ending index is used in collector functions, where it narrows down the collecting to a subset of underlying array
+Defines a range ending index
+
+Range ending index is used in collector functions, where it narrows down the collecting to a subset of underlying array
 
 **Kind**: instance method of [<code>List</code>](#List)  
 
@@ -119,12 +126,15 @@ Defines a range ending indexRange ending index is used in collector functions,
 
 **Example**  
 ```js
-// Collects all items from 0 to 2, from underlying arraylist.to(2).collect()
+// Collects all items from 0 to 2, from underlying array
+list.to(2).collect()
 ```
 <a name="List+filter"></a>
 
 ### list.filter(filterFn) : <code>filter</code>
-Adds filter function to pending filters, but does not execute the filter yetCan be chained
+Adds filter function to pending filters, but does not execute the filter yet
+
+Can be chained
 
 **Kind**: instance method of [<code>List</code>](#List)  
 
@@ -134,7 +144,8 @@ Adds filter function to pending filters, but does not execute the filter yetCa
 
 **Example**  
 ```js
-// Includes items with foo === 'foo', and then out of that subset, filters out everything except items with bar === 'bar'list.filter(item => item.foo === 'foo').filter(item => item.bar === 'bar').collect()
+// Includes items with foo === 'foo', and then out of that subset, filters out everything except items with bar === 'bar'
+list.filter(item => item.foo === 'foo').filter(item => item.bar === 'bar').collect()
 ```
 <a name="List.numberRange"></a>
 
@@ -151,7 +162,8 @@ Generates a list of numbers from specified range
 <a name="ContainedNumber"></a>
 
 ## ContainedNumber(args) ⇒ <code>number</code>
-Wrapper for numbers.Defines boundaries for a number which it cannot cross (= always keeps the number between specified minimum and maximum values).
+Wrapper for numbers.
+Defines boundaries for a number which it cannot cross (= always keeps the number between specified minimum and maximum values).
 
 **Kind**: global function  
 **Returns**: <code>number</code> - the passed in value, if it is in range. If passed in value is less than specified minimum, returns the minimum value. If passed in value is greater than the specified maximum value, returns the maximum value.  
@@ -162,7 +174,9 @@ Wrapper for numbers.Defines boundaries for a number which it cannot cross (= al
 
 **Example**  
 ```js
-const passedInValue = ContainedNumber({ value: 2, min: 1, max: 3}) // 2const minimumValue = ContainedNumber({ value: 1, min: 2, max: 3}) // 2const maximumValue = ContainedNumber({ value: 3, min: 1, max: 2}) // 2
+const passedInValue = ContainedNumber({ value: 2, min: 1, max: 3}) // 2
+const minimumValue = ContainedNumber({ value: 1, min: 2, max: 3}) // 2
+const maximumValue = ContainedNumber({ value: 3, min: 1, max: 2}) // 2
 ```
 
 ## Usage
