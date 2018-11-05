@@ -8,7 +8,7 @@ class List {
    * Constructor, that takes in an array to be wrapped
    * @param {array} fromArray
    */
-  constructor (fromArray) {
+  constructor (fromArray = []) {
     this.array = [...fromArray]
     this.fromIndex = 0
     this.toIndex = this.array.length
