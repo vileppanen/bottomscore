@@ -113,3 +113,10 @@ test('#forEach - recovers from index out of bounds by containing the index in th
   const results = instance.from(0).to(4).forEach(obj => { obj.foo = 'altered' }).collect()
   t.deepEqual(results, [ { foo: 'altered' }, { foo: 'altered' }, { foo: 'altered' } ])
 })
+test('#forEach - throws error if argument is not a function', t => {
+  const array = [ { foo: 'bar' }, { foo: 'foobar' }, { foo: 'notmybar' } ]
+  const instance = new List(array)
+  t.throws(() => {
+    instance.from(0).to(4).forEach('foo').collect()
+  })
+})
