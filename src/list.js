@@ -9,7 +9,7 @@ class List {
    * @param {array} fromArray
    */
   constructor (fromArray = []) {
-    this.array = [...fromArray]
+    this.array = JSON.parse(JSON.stringify(fromArray))
     this.fromIndex = 0
     this.toIndex = this.array.length
     this.filters = []
@@ -77,7 +77,7 @@ class List {
     if (typeof index !== 'number') {
       throw new Error('Argument must be number')
     }
-    this.toIndex = index
+    this.toIndex = index + 1
     return this
   }
   /**
@@ -95,6 +95,28 @@ class List {
       throw new Error('Argument is not a function')
     }
     this.filters.push(filterFn)
+    return this
+  }
+  /**
+   * Executes specified function for each item in the underlying array, without mutating it.
+   *
+   * If specifier functions have been called, function will be executed to each item in the subset.
+   *
+   * Unlike in filters, the function is executed immediately.
+   *
+   * Can be chained
+   * @example
+   * // Updates the second item's foo property to 'bar'
+   * list.from(1).to(1).forEach(item => { item.foo = 'bar' })
+   * @type manipulator
+   * @param {fn} forEachFn Gets passed in single element from underlying array
+   */
+  forEach (forEachFn) {
+    if (typeof forEachFn !== 'function') {
+      throw new Error('Argument is not a function')
+    }
+    const targetRange = this.array.slice(this.fromIndex, this.toIndex)
+    targetRange.forEach(forEachFn)
     return this
   }
 }
