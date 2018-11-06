@@ -78,7 +78,7 @@ test('#collect - returns all elements from specified starting point if only from
 })
 test('#collect - returns all elements from start to the specified ending point if only to specifier is provided', t => {
   const instance = new List([1, 2, 3, 4])
-  const results = instance.to(3).collect()
+  const results = instance.to(2).collect()
   t.deepEqual(results, [1, 2, 3])
 })
 test('#from - throws error if passed argument is not a number', t => {
@@ -92,4 +92,24 @@ test('#to - throws error if passed argument is not a number', t => {
   t.throws(() => {
     instance.to('0')
   })
+})
+test('#forEach - does not mutate the original array', t => {
+  const array = [ { foo: 'bar' }, { foo: 'foobar' } ]
+  const instance = new List(array)
+  const results = instance.forEach(obj => { obj.foo = 'altered' }).collect()
+  t.deepEqual(results, [ { foo: 'altered' }, { foo: 'altered' } ])
+  t.deepEqual(array, [ { foo: 'bar' }, { foo: 'foobar' } ])
+})
+test('#forEach - executes function to specified subset', t => {
+  const array = [ { foo: 'bar' }, { foo: 'foobar' }, { foo: 'notmybar' } ]
+  const instance = new List(array)
+  const results = instance.from(0).to(1).forEach(obj => { obj.foo = 'altered' }).collect()
+  t.deepEqual(results, [ { foo: 'altered' }, { foo: 'altered' } ])
+  t.deepEqual(array, [ { foo: 'bar' }, { foo: 'foobar' }, { foo: 'notmybar' } ])
+})
+test('#forEach - recovers from index out of bounds by containing the index in the range of array', t => {
+  const array = [ { foo: 'bar' }, { foo: 'foobar' }, { foo: 'notmybar' } ]
+  const instance = new List(array)
+  const results = instance.from(0).to(4).forEach(obj => { obj.foo = 'altered' }).collect()
+  t.deepEqual(results, [ { foo: 'altered' }, { foo: 'altered' }, { foo: 'altered' } ])
 })
