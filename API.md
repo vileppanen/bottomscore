@@ -1,4 +1,3 @@
-
 ## Classes
 
 <dl>
@@ -6,8 +5,11 @@
 <dd><p>Wrapper class for array manipulation</p>
 <p>Provides functional interface for handling arrays</p>
 </dd>
+<dt><a href="#Optional">Optional</a></dt>
+<dd><p>Wrapper class for handling values that may be null or undefined</p>
+<p>Mimics functionality of Java 8 Optionals</p>
+</dd>
 </dl>
-
 
 ## Functions
 
@@ -20,40 +22,35 @@ Defines boundaries for a number which it cannot cross (= always keeps the number
 
 <a name="List"></a>
 
-
 ## List
-
-Wrapper class for array manipulation
-
-Provides functional interface for handling arrays
+Wrapper class for array manipulationProvides functional interface for handling arrays
 
 **Kind**: global class  
 
 * [List](#List)
-  * [new List(fromArray)](#new_List_new)
-  * _instance_
-    * [.collect()](#List+collect) ⇒ <code>array</code>
-    * [.from(index)](#List+from) : <code>specifier</code>
-    * [.to(index)](#List+to) : <code>specifier</code>
-    * [.filter(filterFn)](#List+filter) : <code>filter</code>
-    * [.forEach(forEachFn)](#List+forEach) : <code>manipulator</code>
-  * _static_
-    * [.numberRange(from, to)](#List.numberRange)
+    * [new List(fromArray)](#new_List_new)
+    * _instance_
+        * [.collect()](#List+collect) ⇒ <code>array</code>
+        * [.from(index)](#List+from) : <code>specifier</code>
+        * [.to(index)](#List+to) : <code>specifier</code>
+        * [.filter(filterFn)](#List+filter) : <code>filter</code>
+        * [.forEach(forEachFn)](#List+forEach) : <code>manipulator</code>
+    * _static_
+        * [.numberRange(from, to)](#List.numberRange)
 
 <a name="new_List_new"></a>
 
 ### new List(fromArray)
-
 Constructor, that takes in an array to be wrapped
 
-| Param     | Type               |
-| --------- | ------------------ |
-| fromArray | <code>array</code> |
+
+| Param | Type |
+| --- | --- |
+| fromArray | <code>array</code> | 
 
 <a name="List+collect"></a>
 
 ### list.collect() ⇒ <code>array</code>
-
 Executes all pending filters and returns filtered results as new array
 
 **Kind**: instance method of [<code>List</code>](#List)  
@@ -61,130 +58,159 @@ Executes all pending filters and returns filtered results as new array
 <a name="List+from"></a>
 
 ### list.from(index) : <code>specifier</code>
-
-Defines a range starting index
-
-Range starting index is used in collector functions, where it narrows down the collecting to a subset of underlying array
+Defines a range starting indexRange starting index is used in collector functions, where it narrows down the collecting to a subset of underlying array
 
 **Kind**: instance method of [<code>List</code>](#List)  
 
-| Param | Type                |
-| ----- | ------------------- |
-| index | <code>number</code> |
+| Param | Type |
+| --- | --- |
+| index | <code>number</code> | 
 
 **Example**  
-
 ```js
-// Collects all items starting from index 1, from underlying array
-list.from(1).collect()
+// Collects all items starting from index 1, from underlying arraylist.from(1).collect()
 ```
-
 <a name="List+to"></a>
 
 ### list.to(index) : <code>specifier</code>
-
-Defines a range ending index
-
-Range ending index is used in collector functions, where it narrows down the collecting to a subset of underlying array
+Defines a range ending indexRange ending index is used in collector functions, where it narrows down the collecting to a subset of underlying array
 
 **Kind**: instance method of [<code>List</code>](#List)  
 
-| Param | Type                |
-| ----- | ------------------- |
-| index | <code>number</code> |
+| Param | Type |
+| --- | --- |
+| index | <code>number</code> | 
 
 **Example**  
-
 ```js
-// Collects all items from 0 to 2, from underlying array
-list.to(2).collect()
+// Collects all items from 0 to 2, from underlying arraylist.to(2).collect()
 ```
-
 <a name="List+filter"></a>
 
 ### list.filter(filterFn) : <code>filter</code>
-
-Adds filter function to pending filters, but does not execute the filter yet
-
-Can be chained
+Adds filter function to pending filters, but does not execute the filter yetCan be chained
 
 **Kind**: instance method of [<code>List</code>](#List)  
 
-| Param    | Type            | Description                                                                                                                                |
-| -------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Param | Type | Description |
+| --- | --- | --- |
 | filterFn | <code>fn</code> | Gets passed in single element from underlying array, and needs to return boolean specifying if the element should be excluded from results |
 
 **Example**  
-
 ```js
-// Includes items with foo === 'foo', and then out of that subset, filters out everything except items with bar === 'bar'
-list.filter(item => item.foo === 'foo').filter(item => item.bar === 'bar').collect()
+// Includes items with foo === 'foo', and then out of that subset, filters out everything except items with bar === 'bar'list.filter(item => item.foo === 'foo').filter(item => item.bar === 'bar').collect()
 ```
-
 <a name="List+forEach"></a>
 
 ### list.forEach(forEachFn) : <code>manipulator</code>
-
-Executes specified function for each item in the underlying array, without mutating it.
-
-If specifier functions have been called, function will be executed to each item in the subset.
-
-Unlike in filters, the function is executed immediately.
-
-Can be chained
+Executes specified function for each item in the underlying array, without mutating it.If specifier functions have been called, function will be executed to each item in the subset.Unlike in filters, the function is executed immediately.Can be chained
 
 **Kind**: instance method of [<code>List</code>](#List)  
 
-| Param     | Type            | Description                                         |
-| --------- | --------------- | --------------------------------------------------- |
+| Param | Type | Description |
+| --- | --- | --- |
 | forEachFn | <code>fn</code> | Gets passed in single element from underlying array |
 
 **Example**  
-
 ```js
-// Updates the second item's foo property to 'bar'
-list.from(1).to(1).forEach(item => { item.foo = 'bar' })
+// Updates the second item's foo property to 'bar'list.from(1).to(1).forEach(item => { item.foo = 'bar' })
 ```
-
 <a name="List.numberRange"></a>
 
 ### List.numberRange(from, to)
-
 Generates a list of numbers from specified range
 
 **Kind**: static method of [<code>List</code>](#List)  
 
-| Param | Type                | Description          |
-| ----- | ------------------- | -------------------- |
-| from  | <code>number</code> | Starting from number |
-| to    | <code>number</code> | Ending to number     |
+| Param | Type | Description |
+| --- | --- | --- |
+| from | <code>number</code> | Starting from number |
+| to | <code>number</code> | Ending to number |
+
+<a name="Optional"></a>
+
+## Optional
+Wrapper class for handling values that may be null or undefinedMimics functionality of Java 8 Optionals
+
+**Kind**: global class  
+
+* [Optional](#Optional)
+    * _instance_
+        * [.value](#Optional+value)
+        * [.ifPresent(fn)](#Optional+ifPresent)
+        * [.orElse(fn)](#Optional+orElse) ⇒ <code>\*</code>
+        * [.isPresent()](#Optional+isPresent) ⇒ <code>boolean</code>
+    * _static_
+        * [.of(value)](#Optional.of)
+
+<a name="Optional+value"></a>
+
+### optional.value
+The wrapped value
+
+**Kind**: instance property of [<code>Optional</code>](#Optional)  
+<a name="Optional+ifPresent"></a>
+
+### optional.ifPresent(fn)
+Executes the specified function, if value is not null or undefined.Can be chained with .orElse(() => somefunctionbody) to handle cases where value is null or undefined
+
+**Kind**: instance method of [<code>Optional</code>](#Optional)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fn | <code>function</code> | function to be executed, gets wrapped value as an argument |
+
+**Example**  
+```js
+// Console logs 'foo'const instance = new Optional('foo')instance.ifPresent(value => console.log(value))
+```
+<a name="Optional+orElse"></a>
+
+### optional.orElse(fn) ⇒ <code>\*</code>
+Executes the specified function if the wrapped value is nullReturns the wrapped value if it's not null
+
+**Kind**: instance method of [<code>Optional</code>](#Optional)  
+**Returns**: <code>\*</code> - the wrapped value  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fn | <code>\*</code> | function to be executed if the wrapped value is null, function takes no arguments |
+
+**Example**  
+```js
+// Console logs 'foo' and returns the wrapped valueconst instance = new Optional('foo')const value = instance.ifPresent(value => console.log(value)).orElse(() => console.log('bar'))// Console logs 'bar', and returns nullconst instance = new Optional()const value = instance.ifPresent(value => console.log('foo')).orElse(() => console.log('bar'))
+```
+<a name="Optional+isPresent"></a>
+
+### optional.isPresent() ⇒ <code>boolean</code>
+Returns boolean whether the wrapped value is null or not
+
+**Kind**: instance method of [<code>Optional</code>](#Optional)  
+**Returns**: <code>boolean</code> - true if wrapped value is not null or undefined  
+<a name="Optional.of"></a>
+
+### Optional.of(value)
+Returns new Optional with value expected to be not null or undefinedThrows error if null or undefined is passed as argument
+
+**Kind**: static method of [<code>Optional</code>](#Optional)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value | <code>\*</code> | Non-null value to be wrapped |
 
 <a name="ContainedNumber"></a>
 
-
 ## ContainedNumber(args) ⇒ <code>number</code>
-
-Wrapper for numbers.
-Defines boundaries for a number which it cannot cross (= always keeps the number between specified minimum and maximum values).
+Wrapper for numbers.Defines boundaries for a number which it cannot cross (= always keeps the number between specified minimum and maximum values).
 
 **Kind**: global function  
 **Returns**: <code>number</code> - the passed in value, if it is in range. If passed in value is less than specified minimum, returns the minimum value. If passed in value is greater than the specified maximum value, returns the maximum value.  
 
-| Param | Type                | Description                                           |
-| ----- | ------------------- | ----------------------------------------------------- |
-| args  | <code>object</code> | { value, min, max } All properties need to be numbers |
+| Param | Type | Description |
+| --- | --- | --- |
+| args | <code>object</code> | { value, min, max } All properties need to be numbers |
 
 **Example**  
-
 ```js
-const passedInValue = ContainedNumber({ value: 2, min: 1, max: 3}) // 2
-const minimumValue = ContainedNumber({ value: 1, min: 2, max: 3}) // 2
-const maximumValue = ContainedNumber({ value: 3, min: 1, max: 2}) // 2
+const passedInValue = ContainedNumber({ value: 2, min: 1, max: 3}) // 2const minimumValue = ContainedNumber({ value: 1, min: 2, max: 3}) // 2const maximumValue = ContainedNumber({ value: 3, min: 1, max: 2}) // 2
 ```
-
-
-## Contributors
-
-| Name               |
-| ------------------ |
-| **Ville Leppänen** |

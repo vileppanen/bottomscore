@@ -1,6 +1,23 @@
 const test = require('ava')
 const Optional = require('../src/optional')
 
+test('#of - returns new Optional with provided value', t => {
+  const instance = Optional.of('foo')
+  t.is(instance.value, 'foo')
+})
+test('#of - throws error if provided value is null', t => {
+  t.throws(() => {
+    Optional.of()
+  })
+})
+test('#isPresent - returns true if value is not null', t => {
+  const instance = new Optional('foo')
+  t.true(instance.isPresent())
+})
+test('#isPresent - returns false if value is null', t => {
+  const instance = new Optional()
+  t.false(instance.isPresent())
+})
 test('#ifPresent - executes defined function on non null value', t => {
   const instance = new Optional('foo')
   let foo = 'bar'
