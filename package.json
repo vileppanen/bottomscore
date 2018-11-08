@@ -1,7 +1,7 @@
 {
   "name": "bottomscore",
   "description": "Util/extension library for ES6",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "author": "Ville Leppänen <srebelwithoutcause@gmail.com>",
   "ava": {
     "failFast": true,
