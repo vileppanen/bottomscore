@@ -31,19 +31,42 @@ test('#ifPresent - returns the value when chained with orElse without executing 
   t.is(foo, 'foo')
   t.is(value, 'foo')
 })
-test('#orElse - executes the function if value is null, and returns null', t => {
+test('#orElse - returns the default value if wrapped value is null', t => {
   const instance = new Optional()
   let foo = 'bar'
-  const value = instance.ifPresent(value => { foo = 'wasPresent' }).orElse(() => { foo = 'notPresent' })
-  t.is(foo, 'notPresent')
-  t.is(value, null)
+  const value = instance.ifPresent(value => { foo = 'wasPresent' }).orElse('notPresent')
+  t.is(foo, 'bar')
+  t.is(value, 'notPresent')
+})
+test('#orElse - returns the wrapped value if it is not null', t => {
+  const instance = new Optional('foo')
+  let foo = 'bar'
+  const value = instance.ifPresent(value => { foo = 'wasPresent' }).orElse('notPresent')
+  t.is(foo, 'wasPresent')
+  t.is(value, 'foo')
 })
 test('.value - returns the value', t => {
   const instance = new Optional('foo')
   let value = instance.value
   t.is(value, 'foo')
-
   value = 'bar'
   value = instance.ifPresent(val => val).value
   t.is(value, 'foo')
+})
+test('#if - returns the result of argument function', t => {
+  const instance = new Optional({ foo: { bar: { zoo: 'jar' } } })
+  const value = instance.if(val => val.foo.bar.zoo).orElse('defaultval')
+  t.is(value, 'jar')
+})
+test('#if - returns the default value if expression results in null exception', t => {
+  const instance = new Optional({ foo: 'bar' })
+  const value = instance.if(val => val.foo.bar.zoo).orElse('defaultval')
+  t.is(value, 'defaultval')
+})
+test('#if - can be chained with ifPresent', t => {
+  const instance = new Optional({ foo: 'bar' })
+  let wrappedValue = ''
+  const value = instance.if(val => val.foo).ifPresent(val => { wrappedValue = val }).orElse('defaultval')
+  t.is(wrappedValue, 'bar')
+  t.is(value, 'bar')
 })

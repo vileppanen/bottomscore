@@ -138,7 +138,8 @@ Wrapper class for handling values that may be null or undefinedMimics function
     * _instance_
         * [.value](#Optional+value)
         * [.ifPresent(fn)](#Optional+ifPresent)
-        * [.orElse(fn)](#Optional+orElse) ⇒ <code>\*</code>
+        * [.if(expression)](#Optional+if)
+        * [.orElse(defaultValue)](#Optional+orElse) ⇒ <code>\*</code>
         * [.isPresent()](#Optional+isPresent) ⇒ <code>boolean</code>
     * _static_
         * [.of(value)](#Optional.of)
@@ -164,21 +165,36 @@ Executes the specified function, if value is not null or undefined.Can be chai
 ```js
 // Console logs 'foo'const instance = new Optional('foo')instance.ifPresent(value => console.log(value))
 ```
-<a name="Optional+orElse"></a>
+<a name="Optional+if"></a>
 
-### optional.orElse(fn) ⇒ <code>\*</code>
-Executes the specified function if the wrapped value is nullReturns the wrapped value if it's not null
+### optional.if(expression)
+Replaces the wrapped value with the result of the expression functionHandy if need to access complex object property, and there might be nulls along the chain
 
 **Kind**: instance method of [<code>Optional</code>](#Optional)  
-**Returns**: <code>\*</code> - the wrapped value  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| fn | <code>\*</code> | function to be executed if the wrapped value is null, function takes no arguments |
+| expression | <code>fn</code> | Gets the wrapped value as argument, and replaces the wrapped value with result |
 
 **Example**  
 ```js
-// Console logs 'foo' and returns the wrapped valueconst instance = new Optional('foo')const value = instance.ifPresent(value => console.log(value)).orElse(() => console.log('bar'))// Console logs 'bar', and returns nullconst instance = new Optional()const value = instance.ifPresent(value => console.log('foo')).orElse(() => console.log('bar'))
+// value === 'jar'const instance = new Optional({ foo: { bar: { zoo: 'jar' } } })const value = instance.if(val => val.foo.bar.zoo).orElse('defaultval')// value === 'defaultval'const instance = new Optional({ foo: 'bar' })const value = instance.if(val => val.foo.bar.zoo).orElse('defaultval')
+```
+<a name="Optional+orElse"></a>
+
+### optional.orElse(defaultValue) ⇒ <code>\*</code>
+Returns the specified value if wrapped value is not present.Returns the wrapped value if it's present
+
+**Kind**: instance method of [<code>Optional</code>](#Optional)  
+**Returns**: <code>\*</code> - the wrapped value if it is not null, otherwise returns the defaultValue  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| defaultValue | <code>\*</code> | value to be returned, if the wrapped value is null |
+
+**Example**  
+```js
+// value === 'foo'const value = new Optional('foo').orElse('bar')// value === 'bar'const value = new Optional().orElse('bar')
 ```
 <a name="Optional+isPresent"></a>
 

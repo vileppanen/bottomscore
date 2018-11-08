@@ -48,25 +48,48 @@ class Optional {
   }
 
   /**
-   * Executes the specified function if the wrapped value is null
-   * Returns the wrapped value if it's not null
+   * Replaces the wrapped value with the result of the expression function
+   * Handy if need to access complex object property, and there might be nulls along the chain
    *
    * @example
-   * // Console logs 'foo' and returns the wrapped value
-   * const instance = new Optional('foo')
-   * const value = instance.ifPresent(value => console.log(value)).orElse(() => console.log('bar'))
+   * // value === 'jar'
+   * const instance = new Optional({ foo: { bar: { zoo: 'jar' } } })
+   * const value = instance.if(val => val.foo.bar.zoo).orElse('defaultval')
    *
-   * // Console logs 'bar', and returns null
-   * const instance = new Optional()
-   * const value = instance.ifPresent(value => console.log('foo')).orElse(() => console.log('bar'))
+   * // value === 'defaultval'
+   * const instance = new Optional({ foo: 'bar' })
+   * const value = instance.if(val => val.foo.bar.zoo).orElse('defaultval')
    *
-   * @param {*} fn function to be executed if the wrapped value is null, function takes no arguments
-   * @returns {*} the wrapped value
+   * @param {fn} expression Gets the wrapped value as argument, and replaces the wrapped value with result
    */
-  orElse (fn) {
+  if (expression) {
+    try {
+      const resultValue = expression(this.value)
+      this.valuePresent = true
+      this.value = resultValue
+      return this
+    } catch (err) {
+      this.valuePresent = false
+      return this
+    }
+  }
+  /**
+   * Returns the specified value if wrapped value is not present.
+   * Returns the wrapped value if it's present
+   *
+   * @example
+   * // value === 'foo'
+   * const value = new Optional('foo').orElse('bar')
+   *
+   * // value === 'bar'
+   * const value = new Optional().orElse('bar')
+   *
+   * @param {*} defaultValue value to be returned, if the wrapped value is null
+   * @returns {*} the wrapped value if it is not null, otherwise returns the defaultValue
+   */
+  orElse (defaultValue) {
     if (this.valuePresent === false) {
-      fn()
-      return null
+      return defaultValue
     } else {
       return this.value
     }
