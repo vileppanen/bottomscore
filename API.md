@@ -140,6 +140,7 @@ Wrapper class for handling values that may be null or undefinedMimics function
         * [.ifPresent(fn)](#Optional+ifPresent)
         * [.if(expression)](#Optional+if)
         * [.orElse(defaultValue)](#Optional+orElse) ⇒ <code>\*</code>
+        * [.orElseThrow(error)](#Optional+orElseThrow) ⇒ <code>\*</code>
         * [.isPresent()](#Optional+isPresent) ⇒ <code>boolean</code>
     * _static_
         * [.of(value)](#Optional.of)
@@ -183,7 +184,7 @@ Replaces the wrapped value with the result of the expression functionHandy if n
 <a name="Optional+orElse"></a>
 
 ### optional.orElse(defaultValue) ⇒ <code>\*</code>
-Returns the specified value if wrapped value is not present.Returns the wrapped value if it's present
+Returns the specified value if wrapped value is not present.Returns the wrapped value if it's present.
 
 **Kind**: instance method of [<code>Optional</code>](#Optional)  
 **Returns**: <code>\*</code> - the wrapped value if it is not null, otherwise returns the defaultValue  
@@ -195,6 +196,22 @@ Returns the specified value if wrapped value is not present.Returns the wrapped
 **Example**  
 ```js
 // value === 'foo'const value = new Optional('foo').orElse('bar')// value === 'bar'const value = new Optional().orElse('bar')
+```
+<a name="Optional+orElseThrow"></a>
+
+### optional.orElseThrow(error) ⇒ <code>\*</code>
+Throws specified error if wrapped value is not present.Returns the wrapped value if it's present.
+
+**Kind**: instance method of [<code>Optional</code>](#Optional)  
+**Returns**: <code>\*</code> - the wrapped value if it is not null  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| error | <code>Error</code> | error to be thrown, if the wrapped value is null |
+
+**Example**  
+```js
+// throws error with message 'fail'const value = new Optional().ifPresent(value => { console.log('was present') }).orElseThrow(new Error('fail'))// value === 'bar'const value = new Optional('bar').orElseThrow(new Error('fail'))
 ```
 <a name="Optional+isPresent"></a>
 

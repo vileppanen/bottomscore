@@ -45,6 +45,17 @@ test('#orElse - returns the wrapped value if it is not null', t => {
   t.is(foo, 'wasPresent')
   t.is(value, 'foo')
 })
+test('#orElseThrow - throws specified error if wrapped value is null', t => {
+  const instance = new Optional()
+  t.throws(() => {
+    instance.ifPresent(value => { console.log(value) }).orElseThrow(new Error('value was null'))
+  })
+})
+test('#orElseThrow - returns wrapped value if it is present', t => {
+  const instance = new Optional({ foo: { bar: 'zoo' } })
+  const value = instance.if(val => val.foo.bar).orElseThrow(new Error('value was null'))
+  t.is(value, 'zoo')
+})
 test('.value - returns the value', t => {
   const instance = new Optional('foo')
   let value = instance.value
