@@ -75,7 +75,7 @@ class Optional {
   }
   /**
    * Returns the specified value if wrapped value is not present.
-   * Returns the wrapped value if it's present
+   * Returns the wrapped value if it's present.
    *
    * @example
    * // value === 'foo'
@@ -90,6 +90,27 @@ class Optional {
   orElse (defaultValue) {
     if (this.valuePresent === false) {
       return defaultValue
+    } else {
+      return this.value
+    }
+  }
+  /**
+   * Throws specified error if wrapped value is not present.
+   * Returns the wrapped value if it's present.
+   *
+   * @example
+   * // throws error with message 'fail'
+   * const value = new Optional().ifPresent(value => { console.log('was present') }).orElseThrow(new Error('fail'))
+   *
+   * // value === 'bar'
+   * const value = new Optional('bar').orElseThrow(new Error('fail'))
+   *
+   * @param {Error} error error to be thrown, if the wrapped value is null
+   * @returns {*} the wrapped value if it is not null
+   */
+  orElseThrow (error) {
+    if (this.valuePresent === false) {
+      throw error
     } else {
       return this.value
     }
