@@ -14,9 +14,15 @@
 ## Functions
 
 <dl>
+<dt><a href="#arrayAsProps">arrayAsProps(array, propPrefix)</a> ⇒ <code>object</code></dt>
+<dd><p>Returns object having each value of the provided array as indexed property, using specified property name prefix</p>
+</dd>
 <dt><a href="#ContainedNumber">ContainedNumber(args)</a> ⇒ <code>number</code></dt>
 <dd><p>Wrapper for numbers.
 Defines boundaries for a number which it cannot cross (= always keeps the number between specified minimum and maximum values).</p>
+</dd>
+<dt><a href="#propsToArray">propsToArray(obj, propertyNameMatcher)</a> ⇒ <code>array</code></dt>
+<dd><p>Bundles all matching property values from an object into an array</p>
 </dd>
 </dl>
 
@@ -231,6 +237,23 @@ Returns new Optional with value expected to be not null or undefinedThrows err
 | --- | --- | --- |
 | value | <code>\*</code> | Non-null value to be wrapped |
 
+<a name="arrayAsProps"></a>
+
+## arrayAsProps(array, propPrefix) ⇒ <code>object</code>
+Returns object having each value of the provided array as indexed property, using specified property name prefix
+
+**Kind**: global function  
+**Returns**: <code>object</code> - Array presented as object with indexed properties  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| array | <code>\*</code> | Array to convert to object properties |
+| propPrefix | <code>\*</code> | Property name prefix to use |
+
+**Example**  
+```js
+// result === { 'propPrefix[0]': 'foo', 'propPrefix[1]': 'bar' }const result = arrayAsProps(['foo', 'bar'], 'propPrefix')
+```
 <a name="ContainedNumber"></a>
 
 ## ContainedNumber(args) ⇒ <code>number</code>
@@ -246,4 +269,21 @@ Wrapper for numbers.Defines boundaries for a number which it cannot cross (= al
 **Example**  
 ```js
 const passedInValue = ContainedNumber({ value: 2, min: 1, max: 3}) // 2const minimumValue = ContainedNumber({ value: 1, min: 2, max: 3}) // 2const maximumValue = ContainedNumber({ value: 3, min: 1, max: 2}) // 2
+```
+<a name="propsToArray"></a>
+
+## propsToArray(obj, propertyNameMatcher) ⇒ <code>array</code>
+Bundles all matching property values from an object into an array
+
+**Kind**: global function  
+**Returns**: <code>array</code> - Matching property values as array  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| obj | <code>object</code> | Target object |
+| propertyNameMatcher | <code>string</code> | Regexp clause to use for matching property names |
+
+**Example**  
+```js
+// result === ['foo', 'bar']const result = propstToArray({ 'foo[0]': 'foo', 'foo[1]': 'bar' }, 'foo\\[[0-9]+\\]')
 ```
