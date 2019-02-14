@@ -14,8 +14,11 @@
 ## Functions
 
 <dl>
-<dt><a href="#arrayAsProps">arrayAsProps(array, propPrefix)</a> ⇒ <code>object</code></dt>
-<dd><p>Returns object having each value of the provided array as indexed property, using specified property name prefix</p>
+<dt><a href="#arrayAsProps">arrayAsProps(array, propPrefix, indexPropertyName)</a> ⇒ <code>object</code></dt>
+<dd><p>Returns object having each value of the provided array as indexed property, using specified property name prefix.</p>
+<p>By default, indexes the properties by order number.</p>
+<p>If indexPropertyName argument is provided, uses corresponding property value as index value.</p>
+<p>Duplicate properties are bundled into an array as value.</p>
 </dd>
 <dt><a href="#ContainedNumber">ContainedNumber(args)</a> ⇒ <code>number</code></dt>
 <dd><p>Wrapper for numbers.
@@ -239,8 +242,8 @@ Returns new Optional with value expected to be not null or undefinedThrows err
 
 <a name="arrayAsProps"></a>
 
-## arrayAsProps(array, propPrefix) ⇒ <code>object</code>
-Returns object having each value of the provided array as indexed property, using specified property name prefix
+## arrayAsProps(array, propPrefix, indexPropertyName) ⇒ <code>object</code>
+Returns object having each value of the provided array as indexed property, using specified property name prefix.By default, indexes the properties by order number.If indexPropertyName argument is provided, uses corresponding property value as index value.Duplicate properties are bundled into an array as value.
 
 **Kind**: global function  
 **Returns**: <code>object</code> - Array presented as object with indexed properties  
@@ -248,11 +251,20 @@ Returns object having each value of the provided array as indexed property, usin
 | Param | Type | Description |
 | --- | --- | --- |
 | array | <code>\*</code> | Array to convert to object properties |
-| propPrefix | <code>\*</code> | Property name prefix to use |
+| propPrefix | <code>string</code> | Property name prefix to use |
+| indexPropertyName | <code>string</code> | Specified property which value will be used as index |
 
 **Example**  
 ```js
 // result === { 'propPrefix[0]': 'foo', 'propPrefix[1]': 'bar' }const result = arrayAsProps(['foo', 'bar'], 'propPrefix')
+```
+**Example**  
+```js
+// result === { 'propPrefix[wilbur]': { foo: 'object', bar: 'wilbur' }, 'propPrefix[smith]': { foo: 'anotherObject', bar: 'smith' } }const result = arrayAsProps([{ foo: 'object', bar: 'wilbur' }, { foo: 'anotherObject', bar: 'smith' }], 'propPrefix', 'bar')
+```
+**Example**  
+```js
+// result === { 'propPrefix[wilbur]': [{ foo: 'object', bar: 'wilbur' }, { foo: 'anotherObject', bar: 'wilbur' }] }const result = arrayAsProps([{ foo: 'object', bar: 'wilbur' }, { foo: 'anotherObject', bar: 'wilbur' }], 'propPrefix', 'bar')
 ```
 <a name="ContainedNumber"></a>
 
