@@ -40,12 +40,7 @@ const byIndexPropName = (array, propPrefix, indexPropertyName) => {
   return array && array
     .reduce((prevVal, curVal) => {
       const indexProperty = `${propPrefix}[${curVal[indexPropertyName]}]`
-      if (Array.isArray(prevVal[indexProperty])) {
-        return {
-          ...prevVal,
-          [indexProperty]: [ ...prevVal[indexProperty], curVal ]
-        }
-      }
+
       if (prevVal[indexProperty]) {
         return {
           ...prevVal,
